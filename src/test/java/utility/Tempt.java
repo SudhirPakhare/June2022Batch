@@ -31,6 +31,10 @@ public class Tempt
 	   //Click on login button
 		  driver.findElementByXPath("(//*[@type='submit'])[2]").click();
 		  Thread.sleep(5000);
+		  
+		  
+		  
+		  
 	   //Click on manage Address
 		  driver.findElement(By.xpath("//*[text()='Manage Addresses']")).click();
 		  //Click on Add new Address
@@ -44,7 +48,7 @@ public class Tempt
 	   //enter locality
 		  driver.findElementByXPath("(//*[@class='_1w3ZZo _2mFmU7'])[4]").sendKeys("urban");
 	   //Enter Address
-		  driver.findElementByXPath("//*[@class='_1sQQBU _1w3ZZo _1TO48q']").sendKeys("At-Paithan Tal-Paithan Dist-ch.Sambhajinagar ");
+		  driver.findElementByXPath("//*[@class='_1sQQBU _1w3ZZo _1TO48q']").sendKeys("At-Paithan Tal-Paithan Dist-ch.Sambhajinagar");
 	   //Enter Landmark
 		  driver.findElementByXPath("(//*[@class='_1w3ZZo _2mFmU7'])[6]").sendKeys("Rajmata Jijau lab,Near of ZP school, navin Kavsan");
 	   //Ulternate mo no

@@ -11,22 +11,19 @@ import utility.SeleniumOperations;
 
 public class Login 
 {
-	@Given ("^User provide browser name as \"(.*)\" and exe location as \"(.*)\"$")
-	       public void bLaunch(String name,String location)
+	@Given("^User provide browser name as \"([^\"]*)\" and exe location$")
+	       public void bLaunch(String bname)
 	       {
-		       Object[] input=new Object[2];
-		       input[0]=name;
-		       input[1]= location;		
+		       Object[] input=new Object[1];
+		       input[0]=bname;
 		       SeleniumOperations.browserLaunch(input);
 	       }
 	
 	
-	@Given ("^User enter url as \"(.*)\"$")
-	       public void openApp(String url)
+	@Given("^User enter url$")
+	       public void openApp()
 	       {
-		       Object[] input1=new Object[1];
-		       input1[0]=url;
-		       SeleniumOperations.openApplication(input1);
+		      SeleniumOperations.openApplication();
 	       }
 	
 	@Given ("^user cancel initial Login window$")
@@ -89,7 +86,7 @@ public class Login
 	      }
 	
 	@Then ("^Application shows user profile to user$")
-	     public void validation()
+	     public void validation() throws InterruptedException
 	     {
 		     Object[] input8=new Object[2];
 	         input8[0]="//*[text()='Sudhir Pakhare']";

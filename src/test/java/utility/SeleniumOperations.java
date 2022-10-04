@@ -10,11 +10,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import cucumbermap.ConfigReader;
+
+
+
 public class SeleniumOperations
 {
      public static WebDriver driver =null;
      
+     public static ConfigReader config;
+     
      public static Hashtable<String,Object> outputParameters=new Hashtable<String,Object>();
+     
      
 	//browserLaunch
 	public static Hashtable<String,Object> browserLaunch(Object[]inputParameters)
@@ -22,22 +29,24 @@ public class SeleniumOperations
 	  try	
 	  {
 		  String bName=(String) inputParameters[0];
-	   String webDriverExePath=(String) inputParameters[1];
+	      
 	   
 	   if(bName.equalsIgnoreCase("Chrome"))
-	   {
-		  System.setProperty("webdriver.chrome.driver", webDriverExePath);
+	   {  
+		   config=new ConfigReader();
+		  
+		  System.setProperty("webdriver.chrome.driver", config.getDriverPathChrome());
 	      driver=new ChromeDriver();
 	      driver.manage().window().maximize();
-	      driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	      driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	   }
 	   
 	   else if(bName.equalsIgnoreCase("Firefox"))
 	   {
-		  System.setProperty("webdriver.gecko.driver", webDriverExePath);
+		  System.setProperty("webdriver.gecko.driver", config.getDriverPathFF());
 	      driver=new FirefoxDriver();
 	      driver.manage().window().maximize();
-	      driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	      driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	   }
 	   
 	       outputParameters.put("STATUS", "Pass");
@@ -54,20 +63,20 @@ public class SeleniumOperations
 	
 	
 	//openApplication
-	public static Hashtable<String,Object> openApplication(Object[]inputParameters)
+	public static Hashtable<String,Object> openApplication()
 	{
 	  try
-	   { String strUrl= (String) inputParameters[0];
-	     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	     driver.get(strUrl);
-	     
+	   { 
+	    
+	     driver.get(config.getApplicationUrl());
+	     driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	     outputParameters.put("STATUS", "Pass");
-	     outputParameters.put("MESSAGE", "Method used:openApplication  , Input Given:" +inputParameters[0].toString());
+	     outputParameters.put("MESSAGE", "Method used:openApplication  , Input Given:" +  config.getApplicationUrl().toString());
 	   }
 	  catch(Exception e)
 	   {
 		  outputParameters.put("STATUS", "Fail");
-		     outputParameters.put("MESSAGE", "Method used:openApplication  , Input Given:" +inputParameters[0].toString());
+		     outputParameters.put("MESSAGE", "Method used:openApplication  , Input Given:" + config.getApplicationUrl().toString());
 	   }
 	  return outputParameters;
 	}
@@ -78,7 +87,7 @@ public class SeleniumOperations
 	{
 	  try	
 	   { String locator=(String) inputParameters[0];
-	     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	     driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	     driver.findElement(By.xpath(locator)).click();
 	     
 	     outputParameters.put("STATUS", "Pass");
@@ -97,7 +106,7 @@ public class SeleniumOperations
 	public static Hashtable<String,Object> mouseOverActions(Object[]inputParameters)
 	{
 	  try	
-	   {  driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	   {  driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 		  String locator=(String) inputParameters[0];
 	      Actions act=new Actions(driver);
 	      WebElement abc=driver.findElement(By.xpath(locator));
@@ -121,7 +130,7 @@ public class SeleniumOperations
 	  try 	
 	  { String locator=(String) inputParameters[0];
 	    String sendText=(String) inputParameters[1];
-	    driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	    driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	    driver.findElement(By.xpath(locator)).sendKeys(sendText);
 	    
 	    outputParameters.put("STATUS", "Pass");
@@ -136,11 +145,11 @@ public class SeleniumOperations
 	}
 	
 	//validation
-	 public static Hashtable<String,Object> validation(Object[]inputParameters)
-	   {   try
+	 public static Hashtable<String,Object> validation(Object[]inputParameters) throws InterruptedException
+	   {  Thread.sleep(5000);
+		 try
 	       {  String xpath=(String) inputParameters[0];
 		      String givenText=(String) inputParameters[1];
-		      Thread.sleep(5000);
 		      String findedText=driver.findElement(By.xpath(xpath)).getText();
 		   if(findedText.equalsIgnoreCase(givenText))
 		    {

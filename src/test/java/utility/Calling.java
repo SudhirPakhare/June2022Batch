@@ -12,7 +12,7 @@ public class Calling
 		//openApplication
 		Object[] input1=new Object[1];
 		input1[0]="https://www.flipkart.com/";
-		SeleniumOperations.openApplication(input1);
+		SeleniumOperations.openApplication();
 		
 		//clickOnElement
 		Object[] input2=new Object[1];
@@ -46,12 +46,12 @@ public class Calling
 		input7[0]="(//*[@type='submit'])[2]";
 		SeleniumOperations.clickOnElement(input7);
 		
-		//validation
-		Object[] input8=new Object[2];
-		input8[0]="//*[text()='Sudhir Pakhare']";
-		input8[1]="Sudhir Pakhare";
-		SeleniumOperations.validation(input8);
+		//clickOnElement
+				Object[] input9=new Object[1];
+				input9[0]="//*[text()='Manage Addresses']";
+				SeleniumOperations.clickOnElement(input9);
 				
+		
 		
 	}
 }

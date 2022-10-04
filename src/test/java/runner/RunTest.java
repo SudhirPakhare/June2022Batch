@@ -10,17 +10,15 @@ import cucumber.api.junit.Cucumber;
                 (
                 		
                 		features="src/test/resources/Business_Logic",
-                		tags="@SmokeTest",
+                		tags="@RegressionTest",
                 		monochrome=true,
                 		plugin="pretty",
                 		glue="cucumbermap"
                 		
-                		
-                		
-                		
+                	
                 )
 
-public class SmokeTestRunner 
+public class RunTest 
 {
 
 }
